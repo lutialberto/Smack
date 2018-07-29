@@ -14,7 +14,7 @@ class CreateUserActivity : AppCompatActivity() {
 
     fun createUserButtonClicked(view: View) {
         val generateAvatarIntent=Intent(this,GenerateAvatarActivity::class.java)
-        
+
         startActivity(generateAvatarIntent)
     }
 }
