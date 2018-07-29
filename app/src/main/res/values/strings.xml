@@ -11,4 +11,7 @@
     <string name="login">Login</string>
     <string name="don_t_have_a_account">Don´t have a account?</string>
     <string name="sign_up_here">Sign up here</string>
+    <string name="re_insert_password">Re-insert password</string>
+    <string name="create_user">Create user</string>
+    <string name="user_name">User name</string>
 </resources>
