@@ -1,5 +1,6 @@
 package com.example.betom.smack
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.design.widget.NavigationView
@@ -34,7 +35,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun navHeaderLoginButtonClicked(view: View){
-
+        val loginIntent = Intent(this,LoginActivity::class.java)
+        startActivity(loginIntent)
     }
 
     fun navHeaderAddChannelButtonClicked(view: View){
@@ -42,7 +44,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun sendMessageButtonClicked(view: View) {
-        
+
     }
 
 }
