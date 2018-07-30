@@ -17,13 +17,13 @@ class GenerateAvatarActivity : AppCompatActivity() {
         setContentView(R.layout.activity_generate_avatar)
     }
 
-    fun generateAvatarGenerateBackColorClicked(view: View){
+    fun generateBackButtonClicked(view: View){
         val random=Random()
         val r=random.nextInt(255)
         val g=random.nextInt(255)
         val b=random.nextInt(255)
 
-        generateAvatarAvatarImage.setBackgroundColor(Color.rgb(r,g,b))
+        avatarUserImageClicked.setBackgroundColor(Color.rgb(r,g,b))
 
         val savedR=r.toDouble()/255
         val savedG=g.toDouble()/255
@@ -32,11 +32,11 @@ class GenerateAvatarActivity : AppCompatActivity() {
         avatarColor="[$savedR,$savedG,$savedB,1]"
     }
 
-    fun generateAvatarSaveClicked(view: View) {
+    fun saveAvatarButtonClicked(view: View) {
 
     }
 
-    fun generateAvatarAvatarImageClicked(view: View) {
+    fun avartarUserImageClicked(view: View) {
         val random=Random()
         val color=random.nextInt(2)
         val avatar=random.nextInt(28)
@@ -47,7 +47,7 @@ class GenerateAvatarActivity : AppCompatActivity() {
             userAvatar="dark$avatar"
         }
         val resourceId=resources.getIdentifier(userAvatar,"drawable",packageName)
-        generateAvatarAvatarImage.setImageResource(resourceId)
+        avatarUserImageClicked.setImageResource(resourceId)
 
     }
 }
