@@ -1,9 +1,10 @@
-package com.example.betom.smack
+package com.example.betom.smack.controller
 
 import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import com.example.betom.smack.R
 import kotlinx.android.synthetic.main.activity_generate_avatar.*
 import java.util.*
 
