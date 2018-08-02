@@ -11,7 +11,6 @@ import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
@@ -20,11 +19,15 @@ import com.example.betom.smack.R
 import com.example.betom.smack.services.AuthService
 import com.example.betom.smack.services.UserDataService
 import com.example.betom.smack.utilities.BROADCAST_USER_DATA_CHANGE
+import com.example.betom.smack.utilities.SOCKET_URL
+import io.socket.client.IO
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.nav_header_main.*
 
 class MainActivity : AppCompatActivity() {
+
+    val socket= IO.socket(SOCKET_URL)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,11 +38,23 @@ class MainActivity : AppCompatActivity() {
                 this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
-        hideKeyboard()
+    }
 
+    override fun onResume() {
+        super.onResume()
         LocalBroadcastManager.getInstance(this).registerReceiver(userDataChangeReceiver,
                 IntentFilter(BROADCAST_USER_DATA_CHANGE))
+        socket.connect()
+    }
 
+    override fun onPause() {
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(userDataChangeReceiver)
+        super.onPause()
+    }
+
+    override fun onDestroy() {
+        socket.disconnect()
+        super.onDestroy()
     }
 
     private val userDataChangeReceiver= object : BroadcastReceiver(){
@@ -88,10 +103,12 @@ class MainActivity : AppCompatActivity() {
                         val deskTextField=dialogView.findViewById<EditText>(R.id.addChannelDescText)
                         val channelName=nameTextField.text.toString()
                         val channelDesc=deskTextField.text.toString()
-                        hideKeyboard()
+
+                        //creating a channel
+                        socket.emit("newChannel",channelName,channelDesc)
                     }
                     .setNegativeButton("Cancel"){ dialogInterface, i ->
-                        hideKeyboard()
+
                     }
                     .show()
         } else {
@@ -100,7 +117,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun sendMessageButtonClicked(view: View) {
-
+        hideKeyboard()
     }
 
     fun hideKeyboard() {
