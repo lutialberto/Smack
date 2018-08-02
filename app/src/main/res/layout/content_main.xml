@@ -13,7 +13,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Please Log In"
+        android:text="@string/please_log_in"
         android:textAlignment="center"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -24,7 +24,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="message"
+        android:hint="@string/message"
         android:inputType="textMultiLine"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -42,7 +42,8 @@
         android:tint="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/messageTextField"
-        app:srcCompat="@drawable/ic_menu_send" />
+        app:srcCompat="@drawable/ic_menu_send"
+        android:contentDescription="@string/send_message" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/messageListView"

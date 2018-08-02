@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:text="some guy"
+        android:text="@string/some_guy"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         app:layout_constraintStart_toEndOf="@+id/navHeaderUserImage"
         app:layout_constraintTop_toTopOf="@+id/navHeaderUserImage"
@@ -39,7 +39,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="some_guy@smack.com"
+        android:text="@string/some_guy_smack_com"
         app:layout_constraintStart_toEndOf="@+id/navHeaderUserImage"
         app:layout_constraintTop_toBottomOf="@+id/navHeaderUserName"
         tools:text="betomdq.93@gmail.com" />
@@ -51,7 +51,7 @@
         android:layout_marginBottom="8dp"
         android:background="@android:color/transparent"
         android:onClick="navHeaderLoginButtonClicked"
-        android:text="Login"
+        android:text="@string/login"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -68,6 +68,7 @@
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/addchannelbutton" />
+        app:srcCompat="@drawable/addchannelbutton"
+        android:contentDescription="@string/add_channel" />
 
 </android.support.constraint.ConstraintLayout>

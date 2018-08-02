@@ -1,14 +1,24 @@
 package com.example.betom.smack.controller
 
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
+import android.graphics.Color
 import android.os.Bundle
+import android.support.v4.content.LocalBroadcastManager
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.View
 import com.example.betom.smack.R
+import com.example.betom.smack.services.AuthService
+import com.example.betom.smack.services.UserDataService
+import com.example.betom.smack.utilities.BROADCAST_USER_DATA_CHANGE
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
+import kotlinx.android.synthetic.main.nav_header_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,6 +31,22 @@ class MainActivity : AppCompatActivity() {
                 this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(userDataChangeReceiver,
+                IntentFilter(BROADCAST_USER_DATA_CHANGE))
+    }
+
+    private val userDataChangeReceiver= object : BroadcastReceiver(){
+        override fun onReceive(context: Context?, intent: Intent?) {
+            if(AuthService.isLoggedIn){
+                navHeaderUserName.text=UserDataService.name
+                navHeaderUserEmail.text=UserDataService.email
+                val resourceId=resources.getIdentifier(UserDataService.avatarName,"drawable",packageName)
+                navHeaderUserImage.setImageResource(resourceId)
+                navHeaderUserImage.setBackgroundColor(UserDataService.returnAvatarColor(UserDataService.avatarColor))
+                navHeaderLogingButton.text="Logout"
+            }
+        }
     }
 
     override fun onBackPressed() {
@@ -32,12 +58,21 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun navHeaderLoginButtonClicked(view: View){
-        val loginIntent = Intent(this, LoginActivity::class.java)
-        startActivity(loginIntent)
+        if(AuthService.isLoggedIn){
+            UserDataService.logout()
+            navHeaderUserName.text="Login"
+            navHeaderUserEmail.text=""
+            navHeaderUserImage.setImageResource(R.drawable.profiledefault)
+            navHeaderUserImage.setBackgroundColor(Color.TRANSPARENT)
+            navHeaderLogingButton.text="Login"
+        } else {
+            val loginIntent = Intent(this, LoginActivity::class.java)
+            startActivity(loginIntent)
+        }
     }
 
     fun navHeaderAddChannelButtonClicked(view: View){
-
+        println("user name: ${navHeaderUserName.text},      email: ${navHeaderUserEmail.text},       button: ${navHeaderLogingButton.text}")
     }
 
     fun sendMessageButtonClicked(view: View) {

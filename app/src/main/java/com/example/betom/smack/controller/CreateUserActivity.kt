@@ -25,9 +25,9 @@ class CreateUserActivity : AppCompatActivity() {
         val password=passwordText.text.toString()
         val rePassword=rePasswordText.text.toString()
 
-        if(userName.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty())
-            if(password.count()>=8)
-                if(password==rePassword) {
+//        if(userName.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty())
+//            if(password.count()>=8)
+//                if(password==rePassword) {
 
                     //go to the next view
                     val generateAvatarIntent = Intent(this, GenerateAvatarActivity::class.java)
@@ -36,11 +36,11 @@ class CreateUserActivity : AppCompatActivity() {
                     generateAvatarIntent.putExtra(EXTRA_PASSWORD,password)
                     startActivity(generateAvatarIntent)
                     finish()
-                } else
+/*                } else
                     Toast.makeText(this,"the passwords are not the same!!",Toast.LENGTH_SHORT).show()
             else
                 Toast.makeText(this,"the password must be at least 8 characters long",Toast.LENGTH_SHORT).show()
         else
             Toast.makeText(this,"Make sure user name, email and password are filled in",Toast.LENGTH_LONG).show()
-    }
+*/    }
 }
