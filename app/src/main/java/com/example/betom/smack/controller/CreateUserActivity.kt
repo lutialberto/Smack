@@ -7,6 +7,9 @@ import android.view.View
 import android.widget.Toast
 import com.example.betom.smack.R
 import com.example.betom.smack.services.AuthService
+import com.example.betom.smack.utilities.EXTRA_EMAIL
+import com.example.betom.smack.utilities.EXTRA_NAME
+import com.example.betom.smack.utilities.EXTRA_PASSWORD
 import kotlinx.android.synthetic.main.activity_create_user.*
 
 class CreateUserActivity : AppCompatActivity() {
@@ -24,23 +27,15 @@ class CreateUserActivity : AppCompatActivity() {
 /*
         if(password.count()>=8)
             if(password==rePassword) {
-*/                //send data to the DB
-                AuthService.registerUser(this, email, password) {registerSuccess ->
-                    if(registerSuccess){
-                        AuthService.loginUser(this,email,password){loginSuccess ->
-                            if(loginSuccess){
-                                println(AuthService.authToken)
-                                println(AuthService.userEmail)
-                            }
-                        }
-                    }
-
-                }
-
+*/
                 //go to the next view
-/*                val generateAvatarIntent = Intent(this, GenerateAvatarActivity::class.java)
+                val generateAvatarIntent = Intent(this, GenerateAvatarActivity::class.java)
+                generateAvatarIntent.putExtra(EXTRA_NAME,userName)
+                generateAvatarIntent.putExtra(EXTRA_EMAIL,email)
+                generateAvatarIntent.putExtra(EXTRA_PASSWORD,password)
                 startActivity(generateAvatarIntent)
-            } else
+                finish()
+/*            } else
                 Toast.makeText(this,"the passwords are not the same!!",Toast.LENGTH_SHORT).show()
         else
             Toast.makeText(this,"the password must be at least 8 characters long",Toast.LENGTH_SHORT).show()

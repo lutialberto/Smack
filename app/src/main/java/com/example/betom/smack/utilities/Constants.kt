@@ -5,3 +5,8 @@ const val BASE_URL = "https://chattycahtb.herokuapp.com/v1/" // heroku and mlab
 
 const val URL_REGISTER = "${BASE_URL}account/register"
 const val URL_LOGIN = "${BASE_URL}account/login"
+const val URL_CREATE_USER = "${BASE_URL}user/add"
+
+const val EXTRA_NAME = "name"
+const val EXTRA_EMAIL = "email"
+const val EXTRA_PASSWORD = "password"

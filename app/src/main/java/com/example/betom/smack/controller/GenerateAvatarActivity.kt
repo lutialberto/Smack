@@ -5,6 +5,11 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import com.example.betom.smack.R
+import com.example.betom.smack.services.AuthService
+import com.example.betom.smack.services.UserDataService
+import com.example.betom.smack.utilities.EXTRA_EMAIL
+import com.example.betom.smack.utilities.EXTRA_NAME
+import com.example.betom.smack.utilities.EXTRA_PASSWORD
 import kotlinx.android.synthetic.main.activity_generate_avatar.*
 import java.util.*
 
@@ -34,7 +39,26 @@ class GenerateAvatarActivity : AppCompatActivity() {
     }
 
     fun saveAvatarButtonClicked(view: View) {
+        //send data to the DB
+        val email=intent.getStringExtra(EXTRA_EMAIL)
+        val userName=intent.getStringExtra(EXTRA_NAME)
+        val password=intent.getStringExtra(EXTRA_PASSWORD)
 
+        AuthService.registerUser(this, email, password) { registerSuccess ->
+            if(registerSuccess){
+                AuthService.loginUser(this,email,password){ loginSuccess ->
+                    if(loginSuccess){
+                        AuthService.createUser(this,userName,email,userAvatar,avatarColor){ createSuccess ->
+                            println(UserDataService.avatarColor)
+                            println(UserDataService.avatarName)
+                            println(UserDataService.name)
+                            finish()
+                        }
+                    }
+                }
+            }
+
+        }
     }
 
     fun avartarUserImageClicked(view: View) {
