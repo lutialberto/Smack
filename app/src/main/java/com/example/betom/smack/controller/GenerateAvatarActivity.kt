@@ -1,12 +1,16 @@
 package com.example.betom.smack.controller
 
+import android.content.Intent
 import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v4.content.LocalBroadcastManager
 import android.view.View
+import android.widget.Toast
 import com.example.betom.smack.R
 import com.example.betom.smack.services.AuthService
 import com.example.betom.smack.services.UserDataService
+import com.example.betom.smack.utilities.BROADCAST_USER_DATA_CHANGE
 import com.example.betom.smack.utilities.EXTRA_EMAIL
 import com.example.betom.smack.utilities.EXTRA_NAME
 import com.example.betom.smack.utilities.EXTRA_PASSWORD
@@ -21,6 +25,7 @@ class GenerateAvatarActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_generate_avatar)
+        createSpinner.visibility=View.INVISIBLE
     }
 
     fun generateBackButtonClicked(view: View){
@@ -29,7 +34,7 @@ class GenerateAvatarActivity : AppCompatActivity() {
         val g=random.nextInt(255)
         val b=random.nextInt(255)
 
-        avatarUserImageClicked.setBackgroundColor(Color.rgb(r,g,b))
+        avatarUserImage.setBackgroundColor(Color.rgb(r,g,b))
 
         val savedR=r.toDouble()/255
         val savedG=g.toDouble()/255
@@ -40,6 +45,8 @@ class GenerateAvatarActivity : AppCompatActivity() {
 
     fun saveAvatarButtonClicked(view: View) {
         //send data to the DB
+        enableSpinner(true)
+
         val email=intent.getStringExtra(EXTRA_EMAIL)
         val userName=intent.getStringExtra(EXTRA_NAME)
         val password=intent.getStringExtra(EXTRA_PASSWORD)
@@ -49,16 +56,31 @@ class GenerateAvatarActivity : AppCompatActivity() {
                 AuthService.loginUser(this,email,password){ loginSuccess ->
                     if(loginSuccess){
                         AuthService.createUser(this,userName,email,userAvatar,avatarColor){ createSuccess ->
-                            println(UserDataService.avatarColor)
-                            println(UserDataService.avatarName)
-                            println(UserDataService.name)
-                            finish()
+                            if(createSuccess) {
+
+                                val userDataChange=Intent(BROADCAST_USER_DATA_CHANGE)
+                                LocalBroadcastManager.getInstance(this).sendBroadcast(userDataChange)
+
+                                enableSpinner(false)
+                                finish()
+                            } else {
+                                errorToast()
+                            }
                         }
+                    } else {
+                        errorToast()
                     }
                 }
+            } else {
+                errorToast()
             }
 
         }
+    }
+
+    fun errorToast(){
+        Toast.makeText(this,"Something went wrong, please try again.",Toast.LENGTH_LONG).show()
+        enableSpinner(false)
     }
 
     fun avartarUserImageClicked(view: View) {
@@ -72,7 +94,17 @@ class GenerateAvatarActivity : AppCompatActivity() {
             userAvatar="dark$avatar"
         }
         val resourceId=resources.getIdentifier(userAvatar,"drawable",packageName)
-        avatarUserImageClicked.setImageResource(resourceId)
+        avatarUserImage.setImageResource(resourceId)
+    }
 
+    fun enableSpinner(enable:Boolean){
+        if(enable)
+            createSpinner.visibility=View.VISIBLE
+        else
+            createSpinner.visibility=View.INVISIBLE
+
+        generateBackgroundColorButton.isEnabled=!enable
+        saveAvatarButton.isEnabled=!enable
+        avatarUserImage.isEnabled=!enable
     }
 }

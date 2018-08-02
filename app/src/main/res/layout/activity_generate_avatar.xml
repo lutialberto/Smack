@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -16,10 +17,11 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/avatarUserImageClicked"
+        android:id="@+id/avatarUserImage"
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_marginTop="8dp"
+        android:contentDescription="@string/avatar_image"
         android:onClick="avartarUserImageClicked"
         android:padding="5dp"
         android:scaleType="fitCenter"
@@ -27,8 +29,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/hintAvatarText"
-        app:srcCompat="@drawable/profiledefault"
-        android:contentDescription="@string/avatar_image" />
+        app:srcCompat="@drawable/profiledefault" />
 
     <Button
         android:id="@+id/generateBackgroundColorButton"
@@ -44,7 +45,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/avatarUserImageClicked" />
+        app:layout_constraintTop_toBottomOf="@+id/avatarUserImage" />
 
     <Button
         android:id="@+id/saveAvatarButton"
@@ -58,4 +59,15 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/generateBackgroundColorButton"
         app:layout_constraintStart_toStartOf="@+id/generateBackgroundColorButton" />
+
+    <ProgressBar
+        android:id="@+id/createSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:indeterminate="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/generateBackgroundColorButton" />
 </android.support.constraint.ConstraintLayout>

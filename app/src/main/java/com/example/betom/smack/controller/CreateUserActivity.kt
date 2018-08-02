@@ -24,20 +24,23 @@ class CreateUserActivity : AppCompatActivity() {
         val email=emailText.text.toString()
         val password=passwordText.text.toString()
         val rePassword=rePasswordText.text.toString()
-/*
-        if(password.count()>=8)
-            if(password==rePassword) {
-*/
-                //go to the next view
-                val generateAvatarIntent = Intent(this, GenerateAvatarActivity::class.java)
-                generateAvatarIntent.putExtra(EXTRA_NAME,userName)
-                generateAvatarIntent.putExtra(EXTRA_EMAIL,email)
-                generateAvatarIntent.putExtra(EXTRA_PASSWORD,password)
-                startActivity(generateAvatarIntent)
-                finish()
-/*            } else
-                Toast.makeText(this,"the passwords are not the same!!",Toast.LENGTH_SHORT).show()
+
+        if(userName.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty())
+            if(password.count()>=8)
+                if(password==rePassword) {
+
+                    //go to the next view
+                    val generateAvatarIntent = Intent(this, GenerateAvatarActivity::class.java)
+                    generateAvatarIntent.putExtra(EXTRA_NAME,userName)
+                    generateAvatarIntent.putExtra(EXTRA_EMAIL,email)
+                    generateAvatarIntent.putExtra(EXTRA_PASSWORD,password)
+                    startActivity(generateAvatarIntent)
+                    finish()
+                } else
+                    Toast.makeText(this,"the passwords are not the same!!",Toast.LENGTH_SHORT).show()
+            else
+                Toast.makeText(this,"the password must be at least 8 characters long",Toast.LENGTH_SHORT).show()
         else
-            Toast.makeText(this,"the password must be at least 8 characters long",Toast.LENGTH_SHORT).show()
-*/    }
+            Toast.makeText(this,"Make sure user name, email and password are filled in",Toast.LENGTH_LONG).show()
+    }
 }
