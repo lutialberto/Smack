@@ -7,11 +7,13 @@ import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.Volley
 import com.example.betom.smack.controller.App
 import com.example.betom.smack.model.Channel
+import com.example.betom.smack.model.Message
 import com.example.betom.smack.utilities.URL_GET_CHANNELS
 import org.json.JSONException
 
 object MessageService {
     val channels=ArrayList<Channel>()
+    val messages=ArrayList<Message>()
 
     fun getChannels(complete: (Boolean) -> Unit){
         val channelsRequest=object : JsonArrayRequest(Method.GET, URL_GET_CHANNELS,null,
