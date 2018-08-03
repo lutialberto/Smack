@@ -16,11 +16,14 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
 import com.example.betom.smack.R
+import com.example.betom.smack.model.Channel
 import com.example.betom.smack.services.AuthService
+import com.example.betom.smack.services.MessageService
 import com.example.betom.smack.services.UserDataService
 import com.example.betom.smack.utilities.BROADCAST_USER_DATA_CHANGE
 import com.example.betom.smack.utilities.SOCKET_URL
 import io.socket.client.IO
+import io.socket.emitter.Emitter
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.nav_header_main.*
@@ -33,7 +36,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
-
+        socket.connect()
+        socket.on("channelCreated",onNewChannel)
+        
         val toggle = ActionBarDrawerToggle(
                 this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawer_layout.addDrawerListener(toggle)
@@ -41,19 +46,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onResume() {
-        super.onResume()
         LocalBroadcastManager.getInstance(this).registerReceiver(userDataChangeReceiver,
                 IntentFilter(BROADCAST_USER_DATA_CHANGE))
-        socket.connect()
-    }
-
-    override fun onPause() {
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(userDataChangeReceiver)
-        super.onPause()
+        super.onResume()
     }
 
     override fun onDestroy() {
         socket.disconnect()
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(userDataChangeReceiver)
         super.onDestroy()
     }
 
@@ -113,6 +113,17 @@ class MainActivity : AppCompatActivity() {
                     .show()
         } else {
             Toast.makeText(this,"You should login first",Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private val onNewChannel=Emitter.Listener { args ->
+        runOnUiThread{
+            val channelName=args[0] as String
+            val channelDescription=args[1] as String
+            val channelId=args[2] as String
+
+            val newChannel=Channel(channelName,channelDescription,channelId)
+            MessageService.channels.add(newChannel)
         }
     }
 
