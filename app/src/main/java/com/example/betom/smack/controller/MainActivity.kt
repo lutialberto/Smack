@@ -66,6 +66,9 @@ class MainActivity : AppCompatActivity() {
         toggle.syncState()
         setupAdapters()
 
+        LocalBroadcastManager.getInstance(this).registerReceiver(userDataChangeReceiver,
+                IntentFilter(BROADCAST_USER_DATA_CHANGE))
+
         channel_list.setOnItemClickListener { _, _, position, _ ->
             selectedChannel=MessageService.channels[position]
             drawer_layout.closeDrawer(GravityCompat.START)
@@ -76,12 +79,6 @@ class MainActivity : AppCompatActivity() {
             AuthService.findUserByEmail(this){
             }
         }
-    }
-
-    override fun onResume() {
-        LocalBroadcastManager.getInstance(this).registerReceiver(userDataChangeReceiver,
-                IntentFilter(BROADCAST_USER_DATA_CHANGE))
-        super.onResume()
     }
 
     override fun onDestroy() {
@@ -145,6 +142,7 @@ class MainActivity : AppCompatActivity() {
             navHeaderUserImage.setImageResource(R.drawable.profiledefault)
             navHeaderUserImage.setBackgroundColor(Color.TRANSPARENT)
             navHeaderLogingButton.text="Login"
+            mainChannelName.text="Please log in"
         } else {
             val loginIntent = Intent(this, LoginActivity::class.java)
             startActivity(loginIntent)
