@@ -51,11 +51,11 @@ class GenerateAvatarActivity : AppCompatActivity() {
         val userName=intent.getStringExtra(EXTRA_NAME)
         val password=intent.getStringExtra(EXTRA_PASSWORD)
 
-        AuthService.registerUser(this, email, password) { registerSuccess ->
+        AuthService.registerUser(email, password) { registerSuccess ->
             if(registerSuccess){
-                AuthService.loginUser(this,email,password){ loginSuccess ->
+                AuthService.loginUser(email,password){ loginSuccess ->
                     if(loginSuccess){
-                        AuthService.createUser(this,userName,email,userAvatar,avatarColor){ createSuccess ->
+                        AuthService.createUser(userName,email,userAvatar,avatarColor){ createSuccess ->
                             if(createSuccess) {
 
                                 val userDataChange=Intent(BROADCAST_USER_DATA_CHANGE)
