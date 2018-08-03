@@ -2,6 +2,7 @@ package com.example.betom.smack.services
 
 import android.graphics.Color
 import android.util.Log
+import com.example.betom.smack.controller.App
 import java.util.*
 
 object UserDataService {
@@ -19,9 +20,9 @@ object UserDataService {
         avatarName=""
         name=""
         email=""
-        AuthService.userEmail=""
-        AuthService.isLoggedIn=false
-        AuthService.authToken=""
+        App.sharePreferences.userEmail=""
+        App.sharePreferences.isLoggedIn=false
+        App.sharePreferences.authToken=""
     }
 
     fun returnAvatarColor(components:String): Int {
