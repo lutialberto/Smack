@@ -78,6 +78,11 @@ class MainActivity : AppCompatActivity() {
         if(App.sharePreferences.isLoggedIn) {
             AuthService.findUserByEmail(this){
             }
+        } else {
+            messageTextField.isEnabled=false
+            messageTextField.visibility=View.INVISIBLE
+            sendMessageButton.isEnabled=false
+            sendMessageButton.visibility=View.INVISIBLE
         }
     }
 
@@ -96,6 +101,11 @@ class MainActivity : AppCompatActivity() {
                 navHeaderUserImage.setImageResource(resourceId)
                 navHeaderUserImage.setBackgroundColor(UserDataService.returnAvatarColor(UserDataService.avatarColor))
                 navHeaderLogingButton.text="Logout"
+
+                messageTextField.isEnabled=true
+                messageTextField.visibility=View.VISIBLE
+                sendMessageButton.isEnabled=true
+                sendMessageButton.visibility=View.VISIBLE
 
                 MessageService.getChannels {complete ->
                     if(complete){
@@ -143,6 +153,11 @@ class MainActivity : AppCompatActivity() {
             navHeaderUserImage.setBackgroundColor(Color.TRANSPARENT)
             navHeaderLogingButton.text="Login"
             mainChannelName.text="Please log in"
+
+            messageTextField.isEnabled=false
+            messageTextField.visibility=View.INVISIBLE
+            sendMessageButton.isEnabled=false
+            sendMessageButton.visibility=View.INVISIBLE
         } else {
             val loginIntent = Intent(this, LoginActivity::class.java)
             startActivity(loginIntent)

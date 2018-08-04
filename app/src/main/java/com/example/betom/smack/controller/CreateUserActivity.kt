@@ -20,10 +20,10 @@ class CreateUserActivity : AppCompatActivity() {
     }
 
     fun createUserButtonClicked(view: View) {
-        val userName=userNameTextEdit.text.toString()
-        val email=emailTextEdit.text.toString()
-        val password=passwordTextEdit.text.toString()
-        val rePassword=rePasswordTextEdit.text.toString()
+        val userName=userNameTextEdit.text.toString().trim()
+        val email=emailTextEdit.text.toString().trim()
+        val password=passwordTextEdit.text.toString().trim()
+        val rePassword=rePasswordTextEdit.text.toString().trim()
         if(isValidUserName(userName))
                 if(isValidEmail(email))
                         if(isValidPassword(password,rePassword)){
