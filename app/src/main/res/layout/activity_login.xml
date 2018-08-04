@@ -21,18 +21,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/loginPasswordText"
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/loginPasswordTextLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:ems="10"
-        android:hint="@string/password"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="@+id/loginEmailText"
         app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="@+id/loginEmailText"
-        app:layout_constraintTop_toBottomOf="@+id/loginEmailText" />
+        app:layout_constraintTop_toBottomOf="@+id/loginEmailText"
+        app:passwordToggleEnabled="true">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/loginPasswordTextEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/password"
+            android:inputType="textPassword" />
+</android.support.design.widget.TextInputLayout>
 
     <Button
         android:id="@+id/loginLoginButton"
@@ -43,10 +51,10 @@
         android:onClick="loginLoginButtonClicked"
         android:text="@string/login"
         android:textColor="@android:color/white"
-        app:layout_constraintEnd_toEndOf="@+id/loginPasswordText"
+        app:layout_constraintEnd_toEndOf="@+id/loginPasswordTextLayout"
         app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="@+id/loginPasswordText"
-        app:layout_constraintTop_toBottomOf="@+id/loginPasswordText" />
+        app:layout_constraintStart_toStartOf="@+id/loginPasswordTextLayout"
+        app:layout_constraintTop_toBottomOf="@+id/loginPasswordTextLayout" />
 
     <TextView
         android:id="@+id/loginHintText"

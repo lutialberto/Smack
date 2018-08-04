@@ -3,10 +3,10 @@ package com.example.betom.smack.controller
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.View
 import android.widget.Toast
 import com.example.betom.smack.R
-import com.example.betom.smack.services.AuthService
 import com.example.betom.smack.utilities.EXTRA_EMAIL
 import com.example.betom.smack.utilities.EXTRA_NAME
 import com.example.betom.smack.utilities.EXTRA_PASSWORD
@@ -22,9 +22,8 @@ class CreateUserActivity : AppCompatActivity() {
     fun createUserButtonClicked(view: View) {
         val userName=userNameText.text.toString()
         val email=emailText.text.toString()
-        val password=passwordText.text.toString()
-        val rePassword=rePasswordText.text.toString()
-
+        val password=passwordTextEdit.text.toString()
+        val rePassword=rePasswordTextEdit.text.toString()
         if(userName.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty())
             if(password.count()>=8)
                 if(password==rePassword) {
@@ -42,5 +41,17 @@ class CreateUserActivity : AppCompatActivity() {
                 Toast.makeText(this,"the password must be at least 8 characters long",Toast.LENGTH_SHORT).show()
         else
             Toast.makeText(this,"Make sure user name, email and password are filled in",Toast.LENGTH_LONG).show()
+    }
+
+    fun isValidEmail(email:String):Boolean {
+        return !TextUtils.isEmpty(email) && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
+    }
+
+    fun isValidUserName(name:String):Boolean{
+        return name.isNotEmpty()
+    }
+
+    fun isValidPassword(password:String,rePassword:String):Boolean{
+        return password.isNotEmpty() && password==rePassword && password.length>=8 && password.length<=20
     }
 }
