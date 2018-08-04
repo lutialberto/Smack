@@ -24,34 +24,34 @@ class CreateUserActivity : AppCompatActivity() {
         val email=emailTextEdit.text.toString()
         val password=passwordTextEdit.text.toString()
         val rePassword=rePasswordTextEdit.text.toString()
-        if(userName.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty())
-            if(password.count()>=8)
-                if(password==rePassword) {
+        if(isValidUserName(userName))
+                if(isValidEmail(email))
+                        if(isValidPassword(password,rePassword)){
 
-                    //go to the next view
-                    val generateAvatarIntent = Intent(this, GenerateAvatarActivity::class.java)
-                    generateAvatarIntent.putExtra(EXTRA_NAME,userName)
-                    generateAvatarIntent.putExtra(EXTRA_EMAIL,email)
-                    generateAvatarIntent.putExtra(EXTRA_PASSWORD,password)
-                    startActivity(generateAvatarIntent)
-                    finish()
-                } else
-                    Toast.makeText(this,"the passwords are not the same!!",Toast.LENGTH_SHORT).show()
-            else
-                Toast.makeText(this,"the password must be at least 8 characters long",Toast.LENGTH_SHORT).show()
+                            //go to the next view
+                            val generateAvatarIntent = Intent(this, GenerateAvatarActivity::class.java)
+                            generateAvatarIntent.putExtra(EXTRA_NAME,userName)
+                            generateAvatarIntent.putExtra(EXTRA_EMAIL,email)
+                            generateAvatarIntent.putExtra(EXTRA_PASSWORD,password)
+                            startActivity(generateAvatarIntent)
+                            finish()
+                        } else
+                            Toast.makeText(this,"The passwords must match each other and be 8 to 20 characters long",Toast.LENGTH_SHORT).show()
+                else
+                    Toast.makeText(this,"Invalid email, please try again.",Toast.LENGTH_SHORT).show()
         else
-            Toast.makeText(this,"Make sure user name, email and password are filled in",Toast.LENGTH_LONG).show()
+            Toast.makeText(this,"Make sure user name is filled in",Toast.LENGTH_LONG).show()
     }
 
-    fun isValidEmail(email:String):Boolean {
+    private fun isValidEmail(email:String):Boolean {
         return !TextUtils.isEmpty(email) && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
 
-    fun isValidUserName(name:String):Boolean{
+    private fun isValidUserName(name:String):Boolean{
         return name.isNotEmpty()
     }
 
-    fun isValidPassword(password:String,rePassword:String):Boolean{
-        return password.isNotEmpty() && password==rePassword && password.length>=8 && password.length<=20
+    private fun isValidPassword(password:String,rePassword:String):Boolean{
+        return password.trim().isNotEmpty() && password==rePassword && password.length>=8 && password.length<=20
     }
 }

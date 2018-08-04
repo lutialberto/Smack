@@ -34,12 +34,12 @@ class LoginActivity : AppCompatActivity() {
                             enableSpinner(false)
                             finish()
                         } else {
-                            Toast.makeText(this,"Something went wrong in FIND, please try again.", Toast.LENGTH_LONG).show()
+                            Toast.makeText(this,"Something went wrong, please try again.", Toast.LENGTH_LONG).show()
                             enableSpinner(false)
                         }
                     }
                 } else {
-                    Toast.makeText(this,"Something went wrong in LOGIN, please try again.", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this,"Something went wrong, please try again.", Toast.LENGTH_LONG).show()
                     enableSpinner(false)
                 }
             }
