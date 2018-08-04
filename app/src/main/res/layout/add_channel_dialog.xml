@@ -16,7 +16,7 @@
 
         <TextView
             android:id="@+id/textView"
-            android:layout_width="match_parent"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:layout_marginTop="26dp"
@@ -26,32 +26,44 @@
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="16dp" />
 
-        <EditText
-            android:id="@+id/addChannelNameText"
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/addChannelNameTextLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="18dp"
             android:layout_marginLeft="18dp"
             android:layout_marginRight="18dp"
             android:ems="10"
-            android:hint="@string/channel_name"
             android:inputType="textPersonName"
             android:textColor="@android:color/darker_gray"
             tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="52dp" />
+            tools:layout_editor_absoluteY="52dp" >
 
-        <EditText
-            android:id="@+id/addChannelDescText"
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/addChannelNameTextEdit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/channel_name" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/addChannelDescTextLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="18dp"
             android:layout_marginLeft="18dp"
             android:layout_marginRight="18dp"
             android:ems="10"
-            android:hint="@string/channel_description"
             android:inputType="textPersonName"
             android:textColor="@android:color/darker_gray"
             tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="112dp" />
+            tools:layout_editor_absoluteY="112dp" >
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/addChannelDescTextEdit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/channel_description" />
+        </android.support.design.widget.TextInputLayout>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

@@ -156,8 +156,8 @@ class MainActivity : AppCompatActivity() {
 
             builder.setView(dialogView)
                     .setPositiveButton("Add"){ _, _ ->
-                        val nameTextField=dialogView.findViewById<EditText>(R.id.addChannelNameText)
-                        val deskTextField=dialogView.findViewById<EditText>(R.id.addChannelDescText)
+                        val nameTextField=dialogView.findViewById<EditText>(R.id.addChannelNameTextEdit)
+                        val deskTextField=dialogView.findViewById<EditText>(R.id.addChannelDescTextEdit)
                         val channelName=nameTextField.text.toString()
                         val channelDesc=deskTextField.text.toString()
 

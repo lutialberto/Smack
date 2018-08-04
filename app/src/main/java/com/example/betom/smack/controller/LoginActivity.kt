@@ -21,7 +21,7 @@ class LoginActivity : AppCompatActivity() {
 
     fun loginLoginButtonClicked(view: View){
         enableSpinner(true)
-        val email=loginEmailText.text.toString()
+        val email=loginEmailTextEdit.text.toString()
         val password=loginPasswordTextEdit.text.toString()
 
         hideKeyboard()
@@ -34,11 +34,13 @@ class LoginActivity : AppCompatActivity() {
                             enableSpinner(false)
                             finish()
                         } else {
-                            errorToast()
+                            Toast.makeText(this,"Something went wrong in FIND, please try again.", Toast.LENGTH_LONG).show()
+                            enableSpinner(false)
                         }
                     }
                 } else {
-                    errorToast()
+                    Toast.makeText(this,"Something went wrong in LOGIN, please try again.", Toast.LENGTH_LONG).show()
+                    enableSpinner(false)
                 }
             }
         } else {

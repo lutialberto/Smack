@@ -20,8 +20,8 @@ class CreateUserActivity : AppCompatActivity() {
     }
 
     fun createUserButtonClicked(view: View) {
-        val userName=userNameText.text.toString()
-        val email=emailText.text.toString()
+        val userName=userNameTextEdit.text.toString()
+        val email=emailTextEdit.text.toString()
         val password=passwordTextEdit.text.toString()
         val rePassword=rePasswordTextEdit.text.toString()
         if(userName.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty())
